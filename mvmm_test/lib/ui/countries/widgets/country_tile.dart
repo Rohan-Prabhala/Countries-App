@@ -52,55 +52,64 @@ class CountryTile extends StatelessWidget {
         ),
         elevation: 24.0,
         backgroundColor: ColorScheme.of(context).primaryContainer,
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          spacing: 2.0,
-          children: [
-            Text(
-              'Common Name: ${country.engCommonName}',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20.0, color: textColor),
-            ),
-            Text(
-              'Country Code (cca2): ${country.countryCode}',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 14.0, color: textColor),
-            ),
-            Image.network(
-              country.imgLink,
-              width: 100,
-              fit: BoxFit.contain,
-              errorBuilder: (context, error, stackTrace) {
-                print('Image not found: $stackTrace');
-                return Column(
-                  children: [
-                    Image.network(
-                      'https://definicion.de/wp-content/uploads/2009/02/error.png', // In English, British Indian Ocean Territory doesn't work
+        content: Scrollbar(
+          thumbVisibility: true,
+          trackVisibility: true,
+          child: SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 2.0,
+                children: [
+                  Text(
+                    'Common Name: ${country.engCommonName}',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 20.0, color: textColor),
+                  ),
+                  Text(
+                    'Country Code (cca2): ${country.countryCode}',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14.0, color: textColor),
+                  ),
+                  Image.network(
+                    country.imgLink,
+                    width: 100,
+                    fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) {
+                      print('Image not found: $stackTrace');
+                      return Column(
+                        children: [
+                          Image.network(
+                            'https://definicion.de/wp-content/uploads/2009/02/error.png', // In English, British Indian Ocean Territory doesn't work
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  Text(
+                    'Native Name',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 24.0,
+                      color: Colors.indigo.shade500,
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                );
-              },
-            ),
-            Text(
-              'Native Name',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 24.0,
-                color: Colors.indigo.shade500,
-                fontWeight: FontWeight.bold,
+                  ),
+                  Text(
+                    'Official: ${country.nativeOfficialName}',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16.0, color: textColor),
+                  ),
+                  Text(
+                    'Common: ${country.nativeCommonName}',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16.0, color: textColor),
+                  ),
+                ],
               ),
             ),
-            Text(
-              'Official: ${country.nativeOfficialName}',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16.0, color: textColor),
-            ),
-            Text(
-              'Common: ${country.nativeCommonName}',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 16.0, color: textColor),
-            ),
-          ],
+          ),
         ),
       ),
     );

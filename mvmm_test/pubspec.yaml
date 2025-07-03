@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^1.4.0
+  super_sliver_list: ^0.4.1
 
 dev_dependencies:
   flutter_test:

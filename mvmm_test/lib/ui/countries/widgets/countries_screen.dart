@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mvmm_test/ui/core/widgets/custom_app_bar.dart';
 import 'package:mvmm_test/ui/countries/view_models/countries_viewmodel.dart';
 import 'package:mvmm_test/ui/countries/widgets/country_tile.dart';
+import 'package:super_sliver_list/super_sliver_list.dart';
 
 class CountriesScreen extends StatefulWidget {
   const CountriesScreen({super.key, required this.viewModel});
@@ -94,18 +95,24 @@ class _CountriesScreenState extends State<CountriesScreen> {
   DropdownMenuItem<String> buildMenuItem(String item) =>
       DropdownMenuItem(value: item, child: Text(item));
 
-  ListenableBuilder buildCountriesList() {
-    return ListenableBuilder(
-      listenable: widget.viewModel,
-      builder: (context, value) {
-        return ListView.builder(
-          itemCount: widget.viewModel.countries.length - 1,
-          itemBuilder: (_, index) => CountryTile(
-            key: ValueKey(widget.viewModel.countries[index].id),
-            country: widget.viewModel.countries[index],
-          ),
-        );
-      },
+  Widget buildCountriesList() {
+    return Scrollbar(
+      thumbVisibility: true,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 5),
+        child: ListenableBuilder(
+          listenable: widget.viewModel,
+          builder: (context, value) {
+            return SuperListView.builder(
+              itemCount: widget.viewModel.countries.length - 1,
+              itemBuilder: (_, index) => CountryTile(
+                key: ValueKey(widget.viewModel.countries[index].id),
+                country: widget.viewModel.countries[index],
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
