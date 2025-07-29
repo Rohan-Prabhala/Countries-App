@@ -64,6 +64,7 @@ class _CountriesScreenState extends State<CountriesScreen> {
     );
   }
 
+  // This method creates the dropdown for selecting the countries
   Container buildCountriesDropDown() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 4.0),
